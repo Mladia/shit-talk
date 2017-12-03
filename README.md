@@ -6,6 +6,7 @@ Fork of Shawn McCool's [shit talk] (https://github.com/ShawnMcCool/shit-talk)
 ## Dependencies
 - bash
 - jq
+- ruby
 - python3
 - Google Api key (look below)
 
