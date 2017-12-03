@@ -1,0 +1,28 @@
+#!/bin/bash
+
+param=$1
+
+temp_dir=~/.cache
+cd ~/bin/mladia_shit-talk
+
+if [[ -e $temp_dir/.recording.pid ]] || [ ! -z $param ]; then
+	#notify-send --expire-time=2 "analyzing recording"
+	kill `cat $temp_dir/.recording.pid`
+	rm $temp_dir/.recording.pid
+	ruby ./speech_api.rb $temp_dir/.recording.wav 
+	output=$(cat .api_out.txt | jq -r ".result[].alternative[0].transcript")	
+	if [ ! -z $param ]; then output=$param; fi
+	espeak "yes sir" 2>/dev/null
+	notify-send --expire-time=500 --urgency=low "You said: $output !"
+	./decode.py "$output"
+else	
+	echo "recording"
+	#notify-send -u low --expire-time=500 "started recording"
+	if [[ -e $temp_dir/.recording.wav ]]; then
+		rm $temp_dir/.recording.wav
+	fi 
+	espeak "yes?" 2>/dev/null
+	rec --encoding signed-integer -q --bits 16 --channels 1 --rate 16000 $temp_dir/.recording.wav &
+	recording_pid=$!
+	echo $recording_pid > $temp_dir/.recording.pid
+fi

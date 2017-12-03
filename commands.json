@@ -1,0 +1,12 @@
+{
+	"all":[
+		
+		{
+		"condition": ["test"
+				],
+		"command": "echo $var"
+		}
+	],
+	"default_command": "xdg-open \"https://www.google.de/search?q=$var\" &>/dev/null",
+	"_comment":"parameter are stored in $var; this file should be placed in ~/.config/shit-talk/"
+}

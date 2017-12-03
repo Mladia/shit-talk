@@ -21,7 +21,9 @@ request = Net::HTTP::Post.new(uri.request_uri)
 request.body = File.read(filename)
 request.content_type = 'audio/l16; rate=16000;'
 
+
+
 # response
 res = http.request(request)
 
-File.write('./.api_out.txt', res.body)
+File.write('.api_out.txt', res.body)
