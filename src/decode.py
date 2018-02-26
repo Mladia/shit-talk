@@ -17,7 +17,7 @@ text_json = json.loads( file.read() )
 
 file.close()
 
-#print(text_json)
+print(text_json)
 
 tuples = text_json["all"]
 
@@ -25,10 +25,7 @@ tup = []
 for strings in tuples:
 	conds=[]
 	for x in strings["condition"]:
-		
-		conds.append(x)		
-	
-	
+		conds.append(x)
 	tup.append (  (conds, strings["command"]) )
 
 default_command = text_json["default_command"]
@@ -38,10 +35,10 @@ default_command = text_json["default_command"]
 found = False
 to_exec = "var="+ "\""+param + "\";"
 for i in range(0,len(tup)):
-	#building command and conditions	
-	conds = tup[i][0] 
+	#building command and conditions
+	conds = tup[i][0]
 	comm = tup[i][1]
-	#print("cond: "+cond+"\ncomm: "+comm) 
+	#print("cond: "+cond+"\ncomm: "+comm)
 	for cond in conds:
 		if re.search(cond, param):
 			print("in for ;" + cond + ";")
@@ -60,6 +57,3 @@ if not found:
 	to_exec += default_command
 	print("Doing default: " + to_exec )
 	call(to_exec, shell=True)
-
-
-
